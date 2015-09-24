@@ -1,0 +1,29 @@
+daemon:
+    name: daemon
+    image: python:2.7
+    command: "/app/run_daemon.sh"
+    volumes:
+        - "./:/app"
+    expose:
+        - "8888"
+
+backend:
+    name: backend
+    image: python:2.7
+    command: "python /app/backend-sample-app.py"
+    volumes:
+        - "./:/app"
+    expose:
+        - "9000"
+
+nginx:
+    image: nginx:latest
+    volumes:
+        - ./nginx-ldap-auth.conf:/etc/nginx/nginx.conf
+        - ./:/etc/nginx/logs
+    links:
+        - daemon
+        - backend
+    ports:
+        - "80:80"
+
