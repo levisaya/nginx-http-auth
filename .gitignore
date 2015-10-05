@@ -44,3 +44,6 @@ Temporary Items
 
 .vagrant
 .idea
+
+*.egg-info
+*.pyc
