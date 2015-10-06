@@ -1,14 +1,17 @@
 from flask import Flask, request, session, redirect, Response, render_template
 import os
+import click
 
 
-def server(config_class='authorizers.test_auth',
-           port=80,
-           secret_key=os.urandom(24),
-           template='login_form.html'):
+@click.command()
+@click.option('--config_module', default='authorizers.test_auth', help='Import of the configuration module.')
+@click.option('--port', default=80, help='Port ot serve on.')
+@click.option('--secret_key', default=os.urandom(24), help='Secret key.')
+@click.option('--template', default='templates/login_form.html', help='Path to the template to render.')
+def server(config_module, port, secret_key, template):
     app = Flask(__name__)
 
-    config = __import__(config_class, globals(), locals(), ['object'], 0)
+    config = __import__(config_module, globals(), locals(), ['object'], 0)
 
     @app.route('/auth-proxy', methods=['GET'])
     def auth():
