@@ -50,7 +50,7 @@ def server(config_module, port, secret_key, template):
                 pass
 
     app.secret_key = options['secret_key']
-    app.run(port=options['port'])
+    app.run(host='0.0.0.0', port=options['port'])
 
 if __name__ == '__main__':
     server()
