@@ -37,6 +37,7 @@ setup(name='nginx_ldap_auth',
                    'Programming Language :: Python :: 2',
                    'Programming Language :: Python :: 2.7',
                    'Programming Language :: Python :: 3'],
-      packages=['nginx_http_auth'],
+      packages=['nginx_http_auth', 'nginx_http_auth.authorizers'],
+      package_data={'nginx_http_auth': ['templates/*.html']},
       install_requires=dependencies
       )
