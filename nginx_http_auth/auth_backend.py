@@ -1,7 +1,9 @@
 from flask import Flask, request, session, redirect, Response, render_template
 import os
 import click
-
+import logging
+logging.basicConfig()
+import traceback
 
 @click.command()
 @click.option('--config_module', default='authorizers.test_auth', help='Import of the configuration module.')
@@ -30,11 +32,14 @@ def server(config_module, port, secret_key, template):
         else:
             return render_template(template, target=request.headers['X-Target'])
 
+
     @app.route('/')
     def test_backend():
         return "Hello from the test backend!"
 
-    print(locals())
+    @app.errorhandler(500)
+    def catch_server_errors(e):
+        logging.exception("Something awful happened!")
 
     options = {}
 
