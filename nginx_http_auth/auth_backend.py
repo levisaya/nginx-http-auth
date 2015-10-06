@@ -5,11 +5,15 @@ import logging
 logging.basicConfig()
 import traceback
 
+local_dir = os.path.abspath(os.path.join(__file__, '..'))
+
 @click.command()
 @click.option('--config_module', default='authorizers.test_auth', help='Import of the configuration module.')
 @click.option('--port', default=80, help='Port ot serve on.')
 @click.option('--secret_key', default=os.urandom(24), help='Secret key.')
-@click.option('--template', default='templates/login_form.html', help='Path to the template to render.')
+@click.option('--template',
+              default=os.path.join(local_dir, 'templates', 'login_form.html'),
+              help='Path to the template to render.')
 def server(config_module, port, secret_key, template):
     app = Flask(__name__)
 
