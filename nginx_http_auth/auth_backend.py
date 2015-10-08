@@ -13,7 +13,7 @@ local_dir = os.path.abspath(os.path.join(__file__, '..'))
 @click.option('--port', default=80, help='Port ot serve on.')
 @click.option('--secret_key', default=os.urandom(24), help='Secret key.')
 @click.option('--template',
-              default=os.path.join(local_dir, 'templates', 'login_form.html'),
+              default='login_form.html',
               help='Path to the template to render.')
 def server(config_module, port, secret_key, template):
     app = Flask(__name__, template_folder=os.path.abspath(os.path.join(__file__, '..', 'templates')))
